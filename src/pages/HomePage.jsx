@@ -5,7 +5,7 @@ import { TaskListView } from "../views/TaskListView";
 import { StatsView } from "../views/StatsView";
 import { InsightsView } from "../views/InsightsView";
 import { ProfilePage } from "../pages/ProfilePage";
-import { MobileNavbar } from "../components/MobileNavbar";
+import { MobileNavbar } from "../components/MobileNavBar";
 import { AddTaskModal } from "../components/AddTaskModal";
 import { EditTaskModal } from "../components/EditTaskModal";
 
@@ -13,15 +13,22 @@ import { EditTaskModal } from "../components/EditTaskModal";
 const pageVariants = {
   initial: { 
     opacity: 0,
-    y: 20 // Subtle vertical movement for mobile
+    y: 10  // Reduced movement for less visual distraction
   },
   in: { 
     opacity: 1,
-    y: 0 
+    y: 0,
+    transition: {
+      duration: 0.2,  // Faster transitions for ADHD users
+      ease: "easeOut"
+    }
   },
   out: { 
     opacity: 0,
-    y: 20 
+    y: -10,
+    transition: {
+      duration: 0.15  // Even faster exit for better responsiveness
+    }
   }
 };
 
@@ -161,9 +168,11 @@ export function HomePage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-gray-50">
-      <Header />
-      <div className="pb-20 relative">
+    <div className="relative min-h-screen bg-slate-900 text-purple-200">
+      <div className="sticky top-0 z-30 bg-slate-900">
+        <Header />
+      </div>
+      <div className="relative pt-1"> {/* Removed the pt-16 */}
         <AnimatePresence mode="wait">
           {renderView()}
         </AnimatePresence>

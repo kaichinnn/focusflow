@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { CheckCircle2, Circle, Clock, MoreVertical } from 'lucide-react';
+import { CheckCircle2, Circle, Clock, MoreVertical, Zap } from 'lucide-react';
 import { ConfirmModal } from '../components/ConfirmModal';
+import { motion } from 'framer-motion';
 
 const initialTasks = [
   {
@@ -81,69 +82,72 @@ export function TaskListView({ onEditTask, isConfirmModalOpen, onConfirmModalOpe
   return (
     <>
       <div className="pt-1 px-4 space-y-3">
-        {tasks.map((task) => (
-          <div
-            key={task.id}
-            onClick={(e) => handleTaskClick(e, task)}
-            className={`bg-white rounded-xl shadow-md cursor-pointer
-              transition-all duration-200 active:scale-[0.98] hover:shadow-lg
-              ${task.completed ? 'bg-green-50' : ''}`}
-          >
-            <div className="p-4">
-              <div className="flex items-center">
-                <div className="flex items-center flex-1 min-w-0">
-                  <div className={`flex-shrink-0 transition-colors duration-200 
-                    ${task.completed ? 'text-green-500' : 'text-gray-300'}`}
-                  >
-                    {task.completed ? (
-                      <CheckCircle2 className="w-6 h-6" />
-                    ) : (
-                      <Circle className="w-6 h-6" />
-                    )}
-                  </div>
-                  <div className="ml-3 flex-1 min-w-0">
-                    <h3 className={`font-medium transition-all duration-200
-                      ${task.completed ? 'text-gray-500 line-through' : 'text-gray-700'}`}
-                    >
-                      {task.title}
-                    </h3>
-                    {task.description && (
-                      <p className={`text-sm truncate transition-all duration-200
-                        ${task.completed ? 'text-gray-400' : 'text-gray-500'}`}
-                      >
-                        {task.description}
-                      </p>
-                    )}
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-3 flex-shrink-0 ml-4">
-                  <div className="flex items-center gap-2 text-gray-400">
-                    <Clock className="w-4 h-4" />
-                    <span className="text-sm">{task.recurring}</span>
-                  </div>
-                  <button 
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onEditTask(task);
-                    }}
-                    className="text-gray-400 p-1 rounded-lg hover:bg-gray-100 
-                      hover:text-gray-600 transition-colors"
-                  >
-                    <MoreVertical className="w-5 h-5" />
-                  </button>
-                </div>
-              </div>
-              
-              {task.streak.current > 0 && (
-                <div className="mt-2 text-sm text-purple-600">
-                  🔥 {task.streak.current} day streak!
-                </div>
+  {tasks.map((task) => (  // Make sure task is defined here in the map function
+    <div
+      key={task.id}
+      onClick={(e) => handleTaskClick(e, task)}
+      className={`bg-slate-800/60 backdrop-blur-sm rounded-xl border border-purple-500/10
+        hover:border-purple-500/20 hover:bg-slate-700/40
+        transition-all duration-200 active:scale-[0.98] cursor-pointer
+        ${task.completed ? 'bg-emerald-900/20 border-emerald-500/20' : ''}`}
+    >
+      <div className="p-4">
+        <div className="flex items-center">
+          <div className="flex items-center flex-1 min-w-0">
+            <div className={`flex-shrink-0 transition-colors duration-200 
+              ${task.completed ? 'text-emerald-400' : 'text-purple-400'}`}
+            >
+              {task.completed ? (
+                <CheckCircle2 className="w-6 h-6" />
+              ) : (
+                <Circle className="w-6 h-6" />
+              )}
+            </div>
+            <div className="ml-3 flex-1 min-w-0">
+              <h3 className={`font-medium transition-all duration-200
+                ${task.completed ? 'text-purple-200/50 line-through' : 'text-purple-200'}`}
+              >
+                {task.title}
+              </h3>
+              {task.description && (  // Add check for description existence
+                <p className={`text-sm truncate transition-all duration-200
+                  ${task.completed ? 'text-purple-200/30' : 'text-purple-200/70'}`}
+                >
+                  {task.description}
+                </p>
               )}
             </div>
           </div>
-        ))}
+          
+          <div className="flex items-center gap-3 flex-shrink-0 ml-4">
+            <div className="flex items-center gap-2 px-2 py-1 rounded-full bg-purple-500/10">
+              <Clock className="w-4 h-4 text-purple-300" />
+              <span className="text-sm text-purple-200/80">{task.recurring}</span>
+            </div>
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                onEditTask(task);
+              }}
+              className="p-1.5 rounded-lg bg-purple-500/10 hover:bg-purple-500/20
+                text-purple-300 hover:text-purple-200 transition-colors"
+            >
+              <MoreVertical className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+        
+        {task.streak.current > 0 && (
+          <div className="mt-2 flex items-center gap-1.5">
+            <span className="px-2 py-0.5 rounded-full bg-green-500/10 text-green-400 text-sm">
+              🔥 {task.streak.current} day streak!
+            </span>
+          </div>
+        )}
       </div>
+    </div>
+  ))}
+</div>
 
       <ConfirmModal
         isOpen={isConfirmModalOpen}

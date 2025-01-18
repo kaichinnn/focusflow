@@ -35,7 +35,7 @@ export function EditTaskModal({ task, isOpen, onClose }) {
 
       {/* Modal */}
       <div 
-        className={`fixed inset-x-0 bottom-14 transform transition-transform duration-300 ease-out translate-y-full
+        className={`fixed inset-x-0 bottom-16 transform transition-transform duration-300 ease-out translate-y-full
           ${isAnimating ? '!translate-y-0' : ''}`}
         onClick={e => e.stopPropagation()}
       >
@@ -104,7 +104,7 @@ export function EditTaskModal({ task, isOpen, onClose }) {
               </div>
               <button
                 type="button"
-                className="mt-2 text-sm flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-md transition-all duration-200 text-gray-500 hover:text-red-600 hover:bg-gray-50"
+                className="mt-2 text-sm flex items-center justify-center gap-1.5 px-3 py-3 rounded-md transition-all duration-200 text-gray-500 hover:text-red-600 hover:bg-gray-50"
               >
                 <Trash2 className="w-3.5 h-3.5" />
                 <span className="font-medium">Delete routine</span>

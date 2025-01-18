@@ -37,7 +37,7 @@ export function ConfirmModal({ isOpen, onClose, onConfirm }) {
 
       {/* Modal */}
       <div 
-        className={`fixed inset-x-0 bottom-14 transform transition-transform duration-300 ease-out
+        className={`fixed inset-x-0 bottom-16 transform transition-transform duration-300 ease-out
           ${isMounted ? 'translate-y-0' : 'translate-y-full'}`}
         onClick={e => e.stopPropagation()}
       >
